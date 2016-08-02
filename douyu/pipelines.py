@@ -4,16 +4,22 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-import MySQLdb
-import MySQLdb.cursors
+
+#import MySQLdb
+#import MySQLdb.cursors
+import codecs
+
 from twisted.enterprise import adbapi
 
-from douyu.items() import RoomItem
-from douyu.items() import DirectoryItem
+from douyu.items import RoomItem
+from douyu.items import DirectoryItem
 
 class DouyuPipeline(object):
     def process_item(self, item, spider):
-        return item
+        if isinstance(item, RoomItem):
+            with codecs.open('data/data.txt', 'a', 'utf8') as f:
+                f.write("%s\t%s\t%s\t%s\n" % (item['directory'], item['host'], item['num'], item['time']))
+            #print "%s\t%s\t%s\t%s\n" % (item['directory'], item['host'], item['num'], item['time'])
 
 class MySQLStorePipeline(object):
     def __init__(self, dbpool):

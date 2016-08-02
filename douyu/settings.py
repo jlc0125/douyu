@@ -16,7 +16,8 @@ NEWSPIDER_MODULE = 'douyu.spiders'
 
 
 ITEM_PIPELINES = {
-    'douyu.pipelines.MySQLStorePipeline': 300,
+#    'douyu.pipelines.MySQLStorePipeline': 300,
+    'douyu.pipelines.DouyuPipeline': 300,
 }
 
 
